@@ -1,6 +1,6 @@
 # Assignment #1 
-# Students Names:  
-# Date last revised:    
+# Students Names: Songtao Bei 
+# Date last revised: 2025-05-13
 
 # Description: This program will perform experimental analysis of two different algorithms 
 # that do the exact same thing.  Using the execution times obtained, the growth rates can be  
