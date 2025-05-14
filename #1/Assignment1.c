@@ -44,7 +44,7 @@ int main() {
     int initialSize=0;
     int size = 0;
     int numOfRuns = 3;      //Change this if you want more runs
-    bool testing = true;    //Set this to False once code is verified and you are ready to perform experimental growth rate analysis
+    bool testing = False;    //Set this to False once code is verified and you are ready to perform experimental growth rate analysis
     int *inputArray=NULL;
     float *outputArray=NULL;
     clock_t start;
@@ -185,7 +185,15 @@ void display(int* input, float* output, int size) {
 float* prefixAverages1(int X[],  int n){
      float* A = (float*) malloc(n * sizeof(float));
 
-     //Add your code for prefixAverages1 here:
+     //Add your code for prefixAverages2 here:
+
+    for (int i = 0; i < n; i++) {
+            int a = 0;
+            for (int j = 0; j <= i; j++) {
+                a += X[j];
+            }
+            A[i] = (float)a / (i + 1); // 
+        }
 
      return A;
 
@@ -202,10 +210,12 @@ float* prefixAverages1(int X[],  int n){
 *******************************************************************/
 
 float* prefixAverages2(int X[],  int n){
-     float* A = (float*) malloc(n * sizeof(float));
-
-     //Add your code for prefixAverages2 here:
-     
-     return A;
+    float* B = (float*) malloc(n * sizeof(float));
+    int b = 0; //Add your code for prefixAverages2 here:
+    for (int i = 0; i < n; i++) {
+        b += X[i];
+        B[i] = (float)b / (i + 1); // 计算平均值
+    }
+     return B;
 
 }
