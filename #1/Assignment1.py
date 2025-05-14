@@ -143,7 +143,7 @@ def prefix_averages2(input_array):
 
 
 if __name__ == '__main__':
-    testing = True   #Set this to False once code is verified and you are ready to begin experimental growth rate analysis
+    testing = False   #Set this to False once code is verified and you are ready to begin experimental growth rate analysis
     alg = get_algorithm_choice()
     initial_size = int (input("What is the initial size of the array? "))
     size = initial_size
