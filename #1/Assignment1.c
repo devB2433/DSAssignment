@@ -1,7 +1,7 @@
 /* Assignment #1 
  *
- * Students Names:  
- * Date last revised:    
+ * Students Names:  Songtao Bei
+ * Date last revised:    2025-05-13
  * 
  * Description: This program will perform experimental analysis of two different algorithms 
  * that do the exact same thing.  Using the execution times obtained, the growth rates can be  
@@ -184,17 +184,14 @@ void display(int* input, float* output, int size) {
 
 float* prefixAverages1(int X[],  int n){
      float* A = (float*) malloc(n * sizeof(float));
-
      //Add your code for prefixAverages2 here:
-
     for (int i = 0; i < n; i++) {
             int a = 0;
             for (int j = 0; j <= i; j++) {
-                a += X[j];
+                a += X[j];//sum the values
             }
-            A[i] = (float)a / (i + 1); // 
+            A[i] = (float)a / (i + 1); // calculate the average
         }
-
      return A;
 
 }
@@ -211,11 +208,12 @@ float* prefixAverages1(int X[],  int n){
 
 float* prefixAverages2(int X[],  int n){
     float* B = (float*) malloc(n * sizeof(float));
-    int b = 0; //Add your code for prefixAverages2 here:
+    //Add your code for prefixAverages2 here:
+    int b = 0; 
     for (int i = 0; i < n; i++) {
         b += X[i];
-        B[i] = (float)b / (i + 1); // 计算平均值
+        B[i] = (float)b / (i + 1); // calculate the average
     }
-     return B;
+    return B;
 
 }
