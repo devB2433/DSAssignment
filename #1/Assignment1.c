@@ -27,6 +27,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <time.h>
+#include <string.h>
+#include <direct.h>  // for _mkdir
 
 //Function declarataions:
 int getAlgorithmChoice();
@@ -49,6 +51,14 @@ int main() {
     float *outputArray=NULL;
     clock_t start;
     double executionTime=0.0;
+    double runTimes[3];  // Array to store execution times for each run
+    char filename[256];  // Increased buffer size for full path
+    time_t now;
+    struct tm *t;
+    FILE *csvFile;
+
+    // Create results directory if it doesn't exist
+    _mkdir("results");
 
     int algo = getAlgorithmChoice();
     if (algo==1) 
@@ -58,6 +68,21 @@ int main() {
 
     scanf("%d", &initialSize);
     size=initialSize;
+
+    // Create CSV filename with timestamp and full path
+    time(&now);
+    t = localtime(&now);
+    strftime(filename, sizeof(filename), "D:/Canada ALL/06 Sheridan Study/02 Data Structure/Assignment/#1/results_alg%d_%Y%m%d_%H%M%S_c.csv", t);
+    sprintf(filename, filename, algo);
+
+    // Open CSV file and write headers
+    csvFile = fopen(filename, "w");
+    if (csvFile == NULL) {
+        printf("Error opening file!\n");
+        printf("Attempted to open: %s\n", filename);  // Print the attempted file path
+        return 1;
+    }
+    fprintf(csvFile, "Input Size,#1,#2,#3,Average\n");
 
     for (int i = 0; i < 5; i++) {
         printf("Running with input size of %d\n", size);
@@ -76,8 +101,14 @@ int main() {
                 outputArray = prefixAverages2(inputArray, size);
 
             executionTime = (double)(clock() - start) / CLOCKS_PER_SEC * 1000;
+            runTimes[j-1] = executionTime;
             printf("Run #%d on an input size of %d took %f ms\n", j, size, executionTime);       
         }
+
+        // Calculate average and write to CSV
+        double avg = (runTimes[0] + runTimes[1] + runTimes[2]) / 3.0;
+        fprintf(csvFile, "%d,%.2f,%.2f,%.2f,%.2f\n", 
+                size, runTimes[0], runTimes[1], runTimes[2], avg);
 
         if (testing)
             display(inputArray, outputArray, size);
@@ -90,6 +121,10 @@ int main() {
         free(inputArray);
         free(outputArray);
     }
+
+    fclose(csvFile);
+    printf("\nResults have been saved to file: %s\n", filename);
+    return 0;
 } 
 
 /*******************************************************************

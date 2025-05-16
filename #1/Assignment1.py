@@ -23,6 +23,8 @@
 from statistics import mean
 import random 
 import time
+import csv
+from datetime import datetime
 
 
 def create_random_array(n):
@@ -148,10 +150,22 @@ if __name__ == '__main__':
     initial_size = int (input("What is the initial size of the array? "))
     size = initial_size
     num_of_runs = 3    #change this if you want more runs
+    
+    # Create CSV filename (using timestamp and algorithm choice)
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    filename = f"results_alg{alg}_{timestamp}.csv"
+    
+    # Prepare CSV data
+    csv_data = []
+    headers = ["Input Size", "#1", "#2", "#3", "Average"]
+    csv_data.append(headers)
+    
     for x in range(5):
         input_array = create_random_array(size) 
         print("Running with input size of ", size)
         print("=" * 40)
+        
+        run_times = []
         for run in range(1,num_of_runs+1):
             start = time.time()
             if alg == 1:
@@ -159,12 +173,24 @@ if __name__ == '__main__':
             elif alg == 2:
                 output_array = prefix_averages2(input_array)
             exec_time = 1000 * (time.time() - start)
-            print(f"Run #{run} on input size {size} took {exec_time:.2f} ms.")# convert to milliseconds
+            run_times.append(exec_time)
+            print(f"Run #{run} on input size {size} took {exec_time:.2f} ms.")
+        
+        # Calculate average and add to CSV data
+        avg_time = mean(run_times)
+        row_data = [size] + [f"{t:.2f}" for t in run_times] + [f"{avg_time:.2f}"]
+        csv_data.append(row_data)
         
         print()
 
         if testing:
             display(input_array, output_array)
-
         
-        size +=initial_size  # Increase input size for next iteration.
+        size += initial_size  # Increase input size for next iteration.
+    
+    # Write data to CSV file
+    with open(filename, 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerows(csv_data)
+    
+    print(f"\nResults have been saved to file: {filename}")
