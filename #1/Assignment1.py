@@ -74,7 +74,7 @@ def display(input_array, output_array):
     print("=" * 40)
     if output_array != None:
         formatted_output_array = ', '.join(['{:.3f}'.format(value) for value in output_array])
-        print(formatted_output_array)
+        print(formatted_output_array) 
     else:
         print(output_array)
     print()
@@ -158,8 +158,8 @@ if __name__ == '__main__':
                 output_array = prefix_averages1(input_array)
             elif alg == 2:
                 output_array = prefix_averages2(input_array)
-            exec_time = time.time() - start
-            print(f"Run #{run} on input size {size} took {exec_time:.5f} sec.")
+            exec_time = 1000 * (time.time() - start)
+            print(f"Run #{run} on input size {size} took {exec_time:.2f} ms.")# convert to milliseconds
         
         print()
 

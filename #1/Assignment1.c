@@ -44,7 +44,7 @@ int main() {
     int initialSize=0;
     int size = 0;
     int numOfRuns = 3;      //Change this if you want more runs
-    bool testing = False;    //Set this to False once code is verified and you are ready to perform experimental growth rate analysis
+    bool testing = false;    //Set this to False once code is verified and you are ready to perform experimental growth rate analysis
     int *inputArray=NULL;
     float *outputArray=NULL;
     clock_t start;
