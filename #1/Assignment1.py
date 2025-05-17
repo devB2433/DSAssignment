@@ -25,6 +25,7 @@ import random
 import time
 import csv
 from datetime import datetime
+from statistics import mean #for algorithm 3
 
 
 def create_random_array(n):
@@ -49,13 +50,14 @@ def get_algorithm_choice():
     Prompts the user for a choice of algorithm.
 
     Returns:
-    int: The user's choice of algorithm (1 or 2).
+    int: The user's choice of algorithm (1, 2, or 3).
     """
 
     choice = -1
-    while choice < 1 or choice > 2:
+    while choice < 1 or choice > 3:  # 修改为允许1到3的输入
         print("1: prefix_averages1")
         print("2: prefix_averages2")
+        print("3: prefix_averages3")
         choice = int (input("Which algorithm do you want to run? "))
     return choice
 
@@ -143,6 +145,15 @@ def prefix_averages2(input_array):
         A.append(a/(i+1)) ## calculate the average
     return A
 
+def prefix_averages3(input_array):
+    """
+    Computes the prefix averages of an input array using the python built-in function mean()
+    """
+    A = []
+    for i in range(len(input_array)):
+        A.append(mean(input_array[:i+1]))
+    return A
+
 
 if __name__ == '__main__':
     testing = False   #Set this to False once code is verified and you are ready to begin experimental growth rate analysis
@@ -172,6 +183,8 @@ if __name__ == '__main__':
                 output_array = prefix_averages1(input_array)
             elif alg == 2:
                 output_array = prefix_averages2(input_array)
+            elif alg == 3:
+                output_array = prefix_averages3(input_array)
             exec_time = 1000 * (time.time() - start)
             run_times.append(exec_time)
             print(f"Run #{run} on input size {size} took {exec_time:.2f} ms.")
