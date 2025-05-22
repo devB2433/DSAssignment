@@ -3,6 +3,7 @@
 *.exe
 *.csv
 *.7z
-*.docx  
+*.docx
+*.pdf
 /A1_GradingSheet.xlsx
 submit pkg/
